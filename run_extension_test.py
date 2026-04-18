@@ -1,16 +1,22 @@
-# We are importing the logic FROM your new extension structure
+import sys
+import os
+
+# Adds the current directory to the path so it can see the 'ext' folder
+sys.path.append(os.getcwd())
+
+# Import using underscores to match the renamed folder
 from ext.quantum_omni_tool.quantum.omni.tool.logic import QuantumTool
 
-# 1. Initialize the tool
+# 1. Initialize
 my_tool = QuantumTool(stage_path="extension_output.usda")
 
-# 2. Use the "Engine" to generate the grid
+# 2. Run
+print("✅ Extension logic loaded successfully!")
 print("Step 1: " + my_tool.generate_grid(count=10))
 
-# 3. Use the "Engine" to run the quantum measurement
+# 3. Measurement
 stats = my_tool.run_measurement()
 
 print("\n--- EXTENSION TEST REPORT ---")
-print(f"Alpha States: {stats['Alpha']}")
-print(f"Beta States:  {stats['Beta']}")
-print("Check extension_output.usda to see the result!")
+print(f"Alpha (Green): {stats['Alpha']}")
+print(f"Beta (Red):    {stats['Beta']}")
