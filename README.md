@@ -11,6 +11,6 @@ An AI-driven Digital Twin that simulates quantum decoherence under physical stre
 
 ##  Latest Results
 - **Baseline Fidelity:** 19.0%
-- **AI Recommendation:** 0.76 Shielding Factor
-- **Optimized Fidelity:** 32.0%
+- **AI Recommendation:** 0.81 Shielding Factor
+- **Optimized Fidelity:** 36.0%
 - **Critical Failure Point:** Identified at 13.0m
