@@ -16,13 +16,13 @@ my_tool = QuantumOmniTool(stage_path=usd_name)
 
 # 4. Phase 1: Generate the Grid
 print("🎨 Building 100-Qubit Simulation Grid...")
-init_msg = my_tool.generate_simulation_grid(count=10)
+init_msg = my_tool.generate_grid(count=10)
 print(init_msg)
 
 # 5. Phase 2: Execute Quantum Stress Test
 # This now runs the Hadamard gates and RY rotations internally
 print("⚛️  Running Quantum Measurement (H-Gate + RY Rotation)...")
-stats = my_tool.execute_stress_test(log_file=log_name)
+stats = my_tool.run_simulation(log_file=log_name)
 
 # 6. Scientific Analysis Output
 total = stats['Alpha'] + stats['Beta']

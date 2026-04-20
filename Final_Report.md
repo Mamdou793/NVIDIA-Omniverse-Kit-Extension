@@ -1,46 +1,56 @@
-# Engineering Report: Digital Twin Stress Test Analysis
+# Engineering Report on Digital Twin Stress Test 
 
 ## Summary
-The experimental data from the Digital Twin stress test provides insights into the system's performance, specifically concerning qubit fidelity and stress responses at varying fall heights. With a total of 100 qubits deployed and a reported system fidelity of 19.00%, the qubits demonstrate a significant level of decoherence which impacts their operational reliability during stress tests at different heights.
+This report analyzes the results from a recent Digital Twin stress test conducted on a quantum system consisting of 100 qubits. The system has a measured fidelity of 19.00%, which is considerably low for maintaining coherent quantum operations. The maximum fall height subjected to the system was 23.0 meters. The fall height probabilities indicate how likely it is for the system to achieve a particular resulting state (Alpha or Beta) based on defined fall height metrics.
 
-The corresponding probability data for Alpha and Beta states showcases how the qubits respond to increasing fall heights. Understanding these probabilities assists in identifying the Critical Decoherence Height, at which point performance degradation becomes pronounced.
+### Height Data Summary Results
+The following table summarizes the probability distribution of the resulting states (Alpha and Beta) at various fall heights:
+
+| Fall Height (m) | Probability of Alpha | Probability of Beta |
+|------------------|---------------------|---------------------|
+| 5.0              | 0.4                 | 0.6                 |
+| 7.0              | 0.3                 | 0.7                 |
+| 9.0              | 0.1                 | 0.9                 |
+| 11.0             | 0.1                 | 0.9                 |
+| 13.0             | 0.0                 | 1.0                 |
+| 15.0             | 0.0                 | 1.0                 |
+| 17.0             | 0.0                 | 1.0                 |
+| 19.0             | 0.0                 | 1.0                 |
+| 21.0             | 0.3                 | 0.7                 |
+| 23.0             | 0.7                 | 0.3                 |
+
+From the data, we observe a shift in probability towards the Beta state at higher fall heights, with complete dominance of the Beta state by the time we reach 13.0 meters. This indicates a critical decoherence point where the system loses its ability to maintain coherence (an essential property for quantum computing systems).
 
 ## Critical Decoherence Height
-Analysis of the Height Data Summary reveals:
-- At fall heights from 5.0 to 23.0 meters, there are notable transitions in the probabilities of Alpha and Beta results. 
-- A clear pattern indicates that as fall height increases, the chance of transitioning to Beta states (which presumably indicate failure or undesired operational modes) also rises.
-- Notably, the data shows a stark transition at 13.0 meters, where the probability of being in a beta state increases to 100% (i.e., Alpha state probability drops to 0%).
+Based on the analysis of the height data, it is evident that coherence is primarily lost after a fall height of 13.0 meters as the probability of Alpha collapses to zero. Such a behavior suggests that the maximum operational threshold for preserving the quantum state in this system may be around 12.0 meters. Above this height, the system's capabilities are highly compromised.
 
-**Conclusion**: The Critical Decoherence Height can be identified as approximately **13.0 meters**, suggesting that performance declines sharply beyond this point, characterized by a total transition to the Beta state.
+### Conclusion:
+- The critical decoherence height is approximately **13.0 meters**, beyond which the probabilities favor the Beta state, indicating loss of coherence.
 
 ## Recommendations
-1. **Enhancing System Fidelity**: Considering that the current fidelity is only 19.00%, it is necessary to investigate methods for improving qubit coherence time, including:
-   - Using better materials for qubit fabrication.
-   - Reducing environmental noise and temperature fluctuations during operations.
-   - Implementing advanced error-correction techniques for qubit states.
+1. **Improve Fidelity**: The current system fidelity of 19.00% is insufficient for practical quantum applications. Focus on optimizing qubit quality, error correction algorithms, and improving the coherence time of qubits.
+  
+2. **Modify Fall Height Limits**: Based on the critical decoherence point, operational protocols must limit the maximum fall height to be at or below 12.0 meters during stress testing to prevent system failure in coherent state preservation.
 
-2. **Monitoring and Adaptive Response**: Implement a monitoring system that can dynamically adjust operation parameters based on real-time fidelity measurements, particularly when approaching the Critical Decoherence Height.
+3. **Implement Robust Shielding**: To mitigate the effects of decoherence, consider introducing environmental shielding, electromagnetic noise suppression, and temperature control measures.
 
-3. **Shielding and Protection**: Given the findings, an evaluation of physical and electromagnetic shielding is essential to reduce decoherence impacts during both active and passive operational states. This will be crucial for maintaining qubit integrity.
+4. **Further Testing**: Conduct iterative stress tests with varying parameters including qubit specification and environmental conditions. Evaluate the robustness of qubit interactions before subsequent face tests.
 
-4. **Testing Infrastructure**: Design and implement further tests to explore qubit behavior under various fall heights and other stress-inducing conditions to build a comprehensive database for model predictions.
+### RECOMMENDED_SHIELDING Factor Calculation
+To determine an appropriate RECOMMENDED_SHIELDING factor, we will utilize the fidelity value as a key input. The lower the fidelity, the greater shielding will be required. Based on typical best practices:
 
-## Recommended Shielding Calculation
-Given the system's fidelity of 19% and the target fidelity threshold deemed acceptable at 25%, we can calculate the recommended shielding factor using a linear approach, where an ideal fidelity is represented as 1.0:
+- **Mapping Fidelity to Shielding**:  
+    - Fidelity of 0%: Shielding = 1.0 (maximum protection)  
+    - Fidelity of 100%: Shielding = 0.0 (minimum protection)  
+    - We desire a linear mapping:
+  
+**RECOMMENDED_SHIELDING** = 1 - (Fidelity / 100)  
+**RECOMMENDED_SHIELDING** = 1 - (19 / 100)  
+**RECOMMENDED_SHIELDING** = 0.81
 
-\[
-\text{RECOMMENDED\_SHIELDING} = 1.0 - \left( \frac{Target\_Fidelity - Current\_Fidelity}{Target\_Fidelity} \right)
-\]
-\[
-\text{RECOMMENDED\_SHIELDING} = 1.0 - \left( \frac{0.25 - 0.19}{0.25} \right)
-\]
-\[
-\text{RECOMMENDED\_SHIELDING} = 1.0 - \left( \frac{0.06}{0.25} \right)
-\]
-\[
-\text{RECOMMENDED\_SHIELDING} = 1.0 - 0.24 = 0.76
-\]
+Thus, the recommended shielding factor for this quantum system, based on the fidelity measured, is **0.81**.
 
-Thus, the recommended shielding factor is approximately **0.76**.
-
-RECOMMENDED_SHIELDING: 0.76
+### Final Output
+```markdown
+RECOMMENDED_SHIELDING: 0.81
+```
